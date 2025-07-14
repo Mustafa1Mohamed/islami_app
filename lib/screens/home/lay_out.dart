@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:islamy_app/screens/home/screens/hadith_page.dart';
+import 'package:islamy_app/screens/home/screens/hadith/hadith_page.dart';
 import 'package:islamy_app/screens/home/screens/quran/quran_page.dart';
 import 'package:islamy_app/screens/home/screens/radio_page.dart';
 import 'package:islamy_app/screens/home/screens/sebha_page.dart';

@@ -77,26 +77,11 @@ class _SebhaPageState extends State<SebhaPage> {
                 ),
               ),
               Positioned(
-                left: 120,
+                left: 0,
+                right: 0,
                 top: 145,
                 child: GestureDetector(
                   onTap: () {
-                    // if (counter == 33) {
-                    //   if (turn == 0 || turn == 1) {
-                    //     turn++;
-                    //     counter = 0;
-                    //   } else if(turn==2){
-                    //
-                    //       turn ++;
-                    //       counter++;
-                    //
-                    //   }
-                    //   else if(turn>=3){
-                    //     turn=0;
-                    //     counter=0;
-                    //   }
-                    //   rotate=0;
-                    // }
                     if(turn==0){
                       if(counter==33){
                         turn++;
@@ -126,17 +111,22 @@ class _SebhaPageState extends State<SebhaPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          turn == 0
-                              ? 'سبحان الله'
-                              : turn == 1
-                              ? 'الحمدلله'
-                              : 'الله اكبر',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              turn == 0
+                                  ? 'سبحان الله'
+                                  : turn == 1
+                                  ? 'الحمدلله'
+                                  : 'الله اكبر',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 36,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                         Text(
                           '$counter',
