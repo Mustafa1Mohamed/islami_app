@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app/models/sura_model.dart';
-import 'package:islamy_app/screens/home/screens/quran/sura_details.dart';
 
-import '../../../widgets/recent_sura.dart';
+import '../sura_details.dart';
+import 'recent_sura.dart';
 
 class RecentSuraListView extends StatelessWidget {
   const RecentSuraListView({super.key, required this.suraModel});

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key});
+  const CustomTextField({super.key, this.onChanged});
 
+  final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return  TextField(
+      onChanged: onChanged,
       cursorColor: Color(0xffE2BE7F),
       decoration: InputDecoration(
         hintText: 'Sura Name',

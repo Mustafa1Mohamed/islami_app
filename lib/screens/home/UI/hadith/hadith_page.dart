@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islamy_app/screens/home/screens/hadith/widgets/hadith_item_widget.dart';
+import 'package:islamy_app/screens/home/UI/hadith/widgets/hadith_item_widget.dart';
 
 import '../../../../models/hadith_model.dart';
 import '../../widgets/custom_header.dart';

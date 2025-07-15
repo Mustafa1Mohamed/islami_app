@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:islamy_app/screens/home/screens/hadith/hadith_page.dart';
-import 'package:islamy_app/screens/home/screens/quran/quran_page.dart';
-import 'package:islamy_app/screens/home/screens/radio_page.dart';
-import 'package:islamy_app/screens/home/screens/sebha_page.dart';
-import 'package:islamy_app/screens/home/screens/time_page.dart';
+
+import 'UI/Radio/radio_page.dart';
+import 'UI/Sebha/sebha_page.dart';
+import 'UI/Time/time_page.dart';
+import 'UI/hadith/hadith_page.dart';
+import 'UI/quran/quran_page.dart';
 
 class LayOut extends StatefulWidget {
   static const String id = '/home_page';

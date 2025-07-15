@@ -15,7 +15,7 @@ class CustomSura extends StatelessWidget {
     return GestureDetector(
       onTap: onSuraTap,
       child: SizedBox(
-        height: 63,
+        height: 70,
         width: double.infinity,
         child: Column(
 
@@ -42,7 +42,7 @@ class CustomSura extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 24),
+                  SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

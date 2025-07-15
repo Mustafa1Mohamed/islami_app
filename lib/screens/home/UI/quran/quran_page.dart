@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app/core/constants.dart';
 import 'package:islamy_app/core/services/local_storage.dart';
-import 'package:islamy_app/screens/home/screens/quran/sura_details.dart';
-import 'package:islamy_app/screens/home/screens/quran/widgets/recent_sura_list_view.dart';
-import 'package:islamy_app/screens/home/screens/quran/widgets/sura_list_view.dart';
+import 'package:islamy_app/screens/home/UI/quran/sura_details.dart';
+import 'package:islamy_app/screens/home/UI/quran/widgets/recent_sura_list_view.dart';
+import 'package:islamy_app/screens/home/UI/quran/widgets/sura_list_view.dart';
 
 import '../../../../models/sura_model.dart';
 import '../../widgets/custom_header.dart';
@@ -17,12 +17,14 @@ class QuranPage extends StatefulWidget {
 }
 
 class _QuranPageState extends State<QuranPage> {
+  String searchQuery = '';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadRecentSuraData();
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,7 +36,12 @@ class _QuranPageState extends State<QuranPage> {
           SizedBox(height: 21),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: CustomTextField(),
+            child: CustomTextField(
+              onChanged: (value) {
+                searchQuery = value;
+                searchSura();
+              },
+            ),
           ),
           SizedBox(height: 20),
           Padding(
@@ -53,43 +60,57 @@ class _QuranPageState extends State<QuranPage> {
             ),
           ),
           SizedBox(height: 10),
-          recentSuraList.isEmpty ? SizedBox() :
-          RecentSuraListView(
-            suraModel: recentSuraList,
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Row(
+          Visibility(
+            visible: searchQuery.isEmpty,
+            replacement: SuraListView(
+              suraList: searchedSuraList,
+              onSuraTapped: onItemTapped,
+            ),
+            child: Column(
               children: [
-                Text(
-                  'Suras List',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                recentSuraList.isEmpty
+                    ? SizedBox()
+                    : RecentSuraListView(suraModel: recentSuraList),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Suras List',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                SuraListView(
+                  suraList: Constants.suraList,
+                  onSuraTapped: onItemTapped,
                 ),
               ],
             ),
-          ),
-          SuraListView(
-            onSuraTapped: onItemTapped,
           ),
         ],
       ),
     );
   }
 
-  List<String>recentSuraIndexList = [];
+  List<String> recentSuraIndexList = [];
 
-  List<SuraModel>recentSuraList = [];
+  List<SuraModel> recentSuraList = [];
 
   onItemTapped(int index) {
     setState(() {
       _cashingSuraData(index);
       Navigator.pushNamed(
-          context, SuraDetails.id, arguments: Constants.suraList[index]);
+        context,
+        SuraDetails.id,
+        arguments: Constants.suraList[index],
+      );
     });
   }
 
@@ -103,9 +124,7 @@ class _QuranPageState extends State<QuranPage> {
     LocalStorage.setStringList('recentSuraIndexList', recentSuraIndexList);
     recentSuraList.add(Constants.suraList[index]);
     loadRecentSuraData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   loadRecentSuraData() async {
@@ -113,10 +132,21 @@ class _QuranPageState extends State<QuranPage> {
     recentSuraList = [];
     recentSuraIndexList =
         LocalStorage.getStringList('recentSuraIndexList') ?? [];
-    recentSuraList =
-        recentSuraIndexList
-            .map((e) => Constants.suraList[int.parse(e)])
-            .toList();
+    recentSuraList = recentSuraIndexList
+        .map((e) => Constants.suraList[int.parse(e)])
+        .toList();
+  }
 
+  List<SuraModel> searchedSuraList = [];
+
+  void searchSura() {
+    searchedSuraList = [];
+    for (var element in Constants.suraList) {
+      if (element.arName.toLowerCase().contains(searchQuery.toLowerCase()) ||
+          element.enName.toLowerCase().contains(searchQuery.toLowerCase())) {
+        searchedSuraList.add(element);
+      }
+    }
+    setState(() {});
   }
 }

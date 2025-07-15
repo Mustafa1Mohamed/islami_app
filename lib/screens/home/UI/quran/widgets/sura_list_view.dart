@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:islamy_app/models/sura_model.dart';
 
-import '../../../../../core/constants.dart';
-import '../../../widgets/custom_sura.dart';
+import 'custom_sura.dart';
 
 class SuraListView extends StatelessWidget {
-  const SuraListView({super.key, required this.onSuraTapped});
+  const SuraListView(
+      {super.key, required this.onSuraTapped, required this.suraList});
 
   final void Function(int)? onSuraTapped;
+  final List<SuraModel>suraList;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,11 @@ class SuraListView extends StatelessWidget {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => CustomSura(
-          suraModel: Constants.suraList[index],
-          onSuraTap: () => onSuraTapped!(index),
+          suraModel: suraList[index],
+          onSuraTap: () => onSuraTapped!(suraList[index].suraNumber - 1),
         ),
         separatorBuilder: (context, index) => SizedBox(height: 20),
-        itemCount: Constants.suraList.length,
+        itemCount: suraList.length,
       ),
     );
   }

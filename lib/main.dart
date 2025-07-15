@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app/screens/home/UI/quran/sura_details.dart';
 import 'package:islamy_app/screens/home/lay_out.dart';
-import 'package:islamy_app/screens/home/screens/quran/sura_details.dart';
 import 'package:islamy_app/screens/introScreens/onboarding_screen.dart';
 import 'package:islamy_app/screens/splash_screens/second_splash.dart';
 import 'package:islamy_app/screens/splash_screens/splash_screen.dart';

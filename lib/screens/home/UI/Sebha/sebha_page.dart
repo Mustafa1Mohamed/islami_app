@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_header.dart';
+import '../../widgets/custom_header.dart';
 
 class SebhaPage extends StatefulWidget {
   const SebhaPage({super.key});
