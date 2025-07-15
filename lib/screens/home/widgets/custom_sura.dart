@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app/models/sura_model.dart';
-import 'package:islamy_app/screens/home/screens/quran/sura_details.dart';
 
 class CustomSura extends StatelessWidget {
   const CustomSura({
@@ -9,7 +8,8 @@ class CustomSura extends StatelessWidget {
     required this.onSuraTap,
   });
 
-  final VoidCallback onSuraTapfinal SuraModel suraModel;
+  final VoidCallback onSuraTap;
+  final SuraModel suraModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

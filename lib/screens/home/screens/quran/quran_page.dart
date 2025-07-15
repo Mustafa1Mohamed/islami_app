@@ -87,15 +87,30 @@ class _QuranPageState extends State<QuranPage> {
 
   onItemTapped(int index) {
     setState(() {
-      recentSuraIndexList.add(index.toString());
-      LocalStorage.setStringList('recentSuraIndexList', recentSuraIndexList);
-      recentSuraList.add(Constants.suraList[index]);
+      _cashingSuraData(index);
       Navigator.pushNamed(
           context, SuraDetails.id, arguments: Constants.suraList[index]);
     });
   }
 
+  _cashingSuraData(int index) async {
+    String stringIndex = index.toString();
+    if (recentSuraIndexList.contains(stringIndex)) {
+      return;
+    }
+    if (recentSuraIndexList.length == 5) recentSuraIndexList.removeLast();
+    recentSuraIndexList.insert(0, stringIndex);
+    LocalStorage.setStringList('recentSuraIndexList', recentSuraIndexList);
+    recentSuraList.add(Constants.suraList[index]);
+    loadRecentSuraData();
+    setState(() {
+
+    });
+  }
+
   loadRecentSuraData() async {
+    recentSuraIndexList = [];
+    recentSuraList = [];
     recentSuraIndexList =
         LocalStorage.getStringList('recentSuraIndexList') ?? [];
     recentSuraList =
