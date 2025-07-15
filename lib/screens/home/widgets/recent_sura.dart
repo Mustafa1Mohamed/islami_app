@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app/models/sura_model.dart';
 
 class RecentSura extends StatelessWidget {
-  const RecentSura({super.key});
+  const RecentSura({super.key, required this.suraModel});
 
+  final SuraModel suraModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +24,7 @@ class RecentSura extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                'Al-Anbiya',
+                suraModel.enName,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
@@ -32,7 +34,7 @@ class RecentSura extends StatelessWidget {
               SizedBox(height: 10),
 
               Text(
-                'الأنبياء',
+                suraModel.arName,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
@@ -42,7 +44,7 @@ class RecentSura extends StatelessWidget {
 
               SizedBox(height: 10),
               Text(
-                '112 Verses',
+                '${suraModel.verses} Verses',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
@@ -52,7 +54,8 @@ class RecentSura extends StatelessWidget {
             ],
           ),
 
-          SizedBox(child: Image.asset('assets/images/quran_sura.png')),
+          Expanded(child: SizedBox(
+              child: Image.asset('assets/images/quran_sura.png'))),
         ],
       ),
     );

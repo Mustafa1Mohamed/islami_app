@@ -5,10 +5,12 @@ import 'package:islamy_app/screens/introScreens/onboarding_screen.dart';
 import 'package:islamy_app/screens/splash_screens/second_splash.dart';
 import 'package:islamy_app/screens/splash_screens/splash_screen.dart';
 
+import 'core/services/local_storage.dart';
 
 
-void main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorage.init();
   runApp( IslamyApp());
 }
 class IslamyApp extends StatelessWidget {

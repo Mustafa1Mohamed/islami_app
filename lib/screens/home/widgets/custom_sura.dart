@@ -3,15 +3,17 @@ import 'package:islamy_app/models/sura_model.dart';
 import 'package:islamy_app/screens/home/screens/quran/sura_details.dart';
 
 class CustomSura extends StatelessWidget {
-  const CustomSura({super.key, required this.suraModel});
+  const CustomSura({
+    super.key,
+    required this.suraModel,
+    required this.onSuraTap,
+  });
 
-  final SuraModel suraModel;
+  final VoidCallback onSuraTapfinal SuraModel suraModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.pushNamed(context, SuraDetails.id,arguments: suraModel);
-      },
+      onTap: onSuraTap,
       child: SizedBox(
         height: 63,
         width: double.infinity,

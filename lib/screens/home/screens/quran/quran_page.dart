@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app/core/constants.dart';
+import 'package:islamy_app/core/services/local_storage.dart';
+import 'package:islamy_app/screens/home/screens/quran/sura_details.dart';
+import 'package:islamy_app/screens/home/screens/quran/widgets/recent_sura_list_view.dart';
+import 'package:islamy_app/screens/home/screens/quran/widgets/sura_list_view.dart';
 
+import '../../../../models/sura_model.dart';
 import '../../widgets/custom_header.dart';
-import '../../widgets/custom_sura.dart';
 import '../../widgets/custom_text_field.dart';
-import '../../widgets/recent_sura.dart';
 
-class QuranPage extends StatelessWidget {
+class QuranPage extends StatefulWidget {
   const QuranPage({super.key});
 
+  @override
+  State<QuranPage> createState() => _QuranPageState();
+}
+
+class _QuranPageState extends State<QuranPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadRecentSuraData();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -39,16 +53,9 @@ class QuranPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          SizedBox(
-            height: 150,
-            width: double.infinity,
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => RecentSura(),
-              separatorBuilder: (context, index) => SizedBox(width: 10),
-              itemCount: 4,
-            ),
+          recentSuraList.isEmpty ? SizedBox() :
+          RecentSuraListView(
+            suraModel: recentSuraList,
           ),
           SizedBox(height: 10),
           Padding(
@@ -66,18 +73,35 @@ class QuranPage extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => CustomSura(suraModel: Constants.suraList[index],),
-              separatorBuilder: (context, index) => SizedBox(height: 20),
-              itemCount: Constants.suraList.length,
-            ),
+          SuraListView(
+            onSuraTapped: onItemTapped,
           ),
         ],
       ),
     );
+  }
+
+  List<String>recentSuraIndexList = [];
+
+  List<SuraModel>recentSuraList = [];
+
+  onItemTapped(int index) {
+    setState(() {
+      recentSuraIndexList.add(index.toString());
+      LocalStorage.setStringList('recentSuraIndexList', recentSuraIndexList);
+      recentSuraList.add(Constants.suraList[index]);
+      Navigator.pushNamed(
+          context, SuraDetails.id, arguments: Constants.suraList[index]);
+    });
+  }
+
+  loadRecentSuraData() async {
+    recentSuraIndexList =
+        LocalStorage.getStringList('recentSuraIndexList') ?? [];
+    recentSuraList =
+        recentSuraIndexList
+            .map((e) => Constants.suraList[int.parse(e)])
+            .toList();
+
   }
 }
